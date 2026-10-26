@@ -1,0 +1,25 @@
+# Free preview route. Use a persistent external Neon Free database, not Render's expiring free DB.
+services:
+  - type: web
+    name: flask-fullstack-framework
+    runtime: python
+    plan: free
+    buildCommand: pip install --no-cache-dir -r requirements.txt
+    startCommand: python scripts/start_production.py
+    healthCheckPath: /health/live
+    autoDeployTrigger: commit
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.14
+      - key: APP_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: SESSION_COOKIE_SECURE
+        value: "true"
+      - key: PROXY_FIX_HOPS
+        value: "1"
+      - key: MAIL_TRANSPORT
+        value: disabled
+      - key: DATABASE_URL
+        sync: false

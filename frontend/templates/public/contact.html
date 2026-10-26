@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% from 'components/forms.html' import field %}
+{% block title %}Contact{% endblock %}
+{% block content %}
+  <section class="auth-layout">
+    <div>
+      <p class="eyebrow">CONTACT</p>
+      <h1>Let's talk.</h1>
+      <p class="lead">Send a message to the team.</p>
+    </div>
+    <form class="panel form-stack" method="post">
+      {{ form.hidden_tag() }}
+      {{ field(form.name, autocomplete='name') }}
+      {{ field(form.email, autocomplete='email') }}
+      {{ field(form.message) }}
+      <div class="honeypot" aria-hidden="true">
+        {{ form.website.label }}
+        {{ form.website(tabindex='-1', autocomplete='off') }}
+      </div>
+      {{ form.submit(class_='button primary') }}
+    </form>
+  </section>
+{% endblock %}

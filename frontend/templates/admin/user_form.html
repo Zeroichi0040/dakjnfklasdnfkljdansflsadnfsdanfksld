@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from 'components/forms.html' import field %}
+{% block title %}Edit account{% endblock %}
+{% block content %}
+  <section class="narrow">
+    <a href="{{ url_for('admin.users') }}">← Accounts</a>
+    <h1>Edit account</h1>
+    <p>{{ target.display_name }} · {{ target.email }}</p>
+    <form class="panel form-stack" method="post">
+      {{ form.hidden_tag() }}
+      {{ field(form.role) }}<label class="checkbox-label">{{ form.active() }}
+      {{ form.active.label.text }}
+      </label>
+      <p class="hint">Saving revokes this account's previous sessions. An administrator cannot change their own role or active status here.</p>
+      {{ form.submit(class_='button primary') }}
+    </form>
+  </section>
+{% endblock %}

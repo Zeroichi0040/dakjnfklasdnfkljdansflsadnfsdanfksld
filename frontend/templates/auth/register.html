@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% from 'components/forms.html' import field %}
+{% block title %}Create account{% endblock %}
+{% block content %}
+  <section class="auth-layout">
+    <div>
+      <span class="pill">GET STARTED</span>
+      <h1>Create your account.</h1>
+      <p class="lead">One account. Your information, organized and private.</p>
+    </div>
+    <form class="panel form-stack" method="post">
+      <h2>Join {{ app_name }}</h2>
+      {{ form.hidden_tag() }}
+      {{ field(form.display_name, autocomplete='name') }}
+      {{ field(form.email, autocomplete='email') }}
+      {{ field(form.password, help='Use 12–128 characters.', autocomplete='new-password') }}
+      {{ field(form.confirm, autocomplete='new-password') }}
+      {{ form.submit(class_='button primary full') }}
+      <p class="hint">Already have an account? <a href="{{ url_for('auth.login_page') }}">Sign in</a>.</p>
+    </form>
+  </section>
+{% endblock %}

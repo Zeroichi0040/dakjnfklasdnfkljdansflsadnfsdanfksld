@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Inventory{% endblock %}
+{% block content %}<header class="page-heading">
+<div>
+<p class="eyebrow">BEHIND THE COUNTER</p>
+<h1>Bakery inventory</h1>
+</div>
+<a class="button primary" href="{{ url_for('bakery.edit_product') }}">+ New product</a>
+</header>
+<section class="panel table-wrap">
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Category</th>
+<th>Price</th>
+<th>Stock</th>
+<th>Availability</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>{% for product in pagination.items %}<tr>
+<td>{{ product.name }}</td>
+<td>{{ product.category.name }}</td>
+<td>{{ product.price|peso }}</td>
+<td>{{ product.stock }}</td>
+<td>{{ 'Active' if product.active else 'Deactivated' }}{{ ' · sold out' if not product.stock else '' }}</td>
+<td>
+<a href="{{ url_for('bakery.edit_product', product_id=product.id) }}">Edit</a>
+</td>
+</tr>{% else %}<tr>
+<td colspan="6">No products. Run the sample seed command to add categories and examples.</td>
+</tr>{% endfor %}</tbody>
+</table>
+</section>{% from "components/pagination.html" import pager with context %}{{ pager(pagination) }}<p>
+<a href="{{ url_for('bakery.admin_dashboard') }}">← Sales dashboard</a>
+</p>{% endblock %}

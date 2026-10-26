@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% from 'components/forms.html' import field %}
+{% block title %}New password{% endblock %}
+{% block content %}
+  <section class="narrow">
+    <p class="eyebrow">ACCOUNT ACCESS</p>
+    <h1>Choose a new password</h1>
+    <form class="panel form-stack" method="post">
+      {{ form.hidden_tag() }}
+      {{ field(form.password,help='Use between 12 and 128 characters.',autocomplete='new-password') }}
+      {{ field(form.confirm,autocomplete='new-password') }}
+      {{ form.submit(class_='button primary') }}
+    </form>
+  </section>
+{% endblock %}

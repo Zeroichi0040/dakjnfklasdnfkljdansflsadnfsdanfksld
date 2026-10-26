@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% from 'components/forms.html' import field %}
+{% block title %}My account{% endblock %}
+{% block content %}
+  <section class="narrow">
+    <p class="eyebrow">YOUR DETAILS</p>
+    <h1>My account</h1>
+    <form class="panel form-stack" method="post">
+      {{ form.hidden_tag() }}
+      {{ field(form.display_name,autocomplete='name') }}
+      <div class="field">
+        <span class="field-label">Email</span>
+        <p>{{ current_user.email }}</p>
+      </div>
+      {{ form.submit(class_='button primary') }}
+    </form>
+    <section class="panel">
+      <h2>Password and access</h2>
+      <p>Choose a password you only use for this account.</p>
+      <a class="button quiet" href="{{ url_for('account.password') }}">Change password</a>
+    </section>
+  </section>
+{% endblock %}

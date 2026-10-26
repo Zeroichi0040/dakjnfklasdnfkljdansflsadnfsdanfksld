@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Bakehouse overview{% endblock %}
+{% block content %}
+<header class="page-heading">
+<div>
+<p class="eyebrow">MITHI · BEHIND THE COUNTER</p>
+<h1>The bakehouse at a glance.</h1>
+<p>Statistics from real order records. All payments are simulated.</p>
+</div>
+<div class="actions">
+<a class="button primary" href="{{ url_for('bakery.admin_orders') }}">Manage orders</a>
+<a class="button quiet" href="{{ url_for('bakery.inventory') }}">Manage inventory</a>
+</div>
+</header>
+<section class="metric-grid">
+<div class="metric-card">
+<span>Completed paid sales</span>
+<strong>{{ stats.revenue|peso }}</strong>
+<small>Completed orders with paid payments only</small>
+</div>
+<div class="metric-card">
+<span>Completed paid orders</span>
+<strong>{{ stats.count }}</strong>
+<small>Cancelled / refunded orders excluded</small>
+</div>
+<div class="metric-card">
+<span>Average completed sale</span>
+<strong>{{ stats.average|peso }}</strong>
+</div>
+<div class="metric-card">
+<span>Unpaid cash on pickup</span>
+<strong>{{ stats.unpaid|peso }}</strong>
+<small>Reserved orders; excluded from sales</small>
+</div>
+<div class="metric-card">
+<span>Paid, awaiting fulfilment</span>
+<strong>{{ stats.paid_open|peso }}</strong>
+<small>Not yet included in completed sales</small>
+</div>
+</section>
+<div class="dashboard-grid">
+<section class="panel">
+<h2>Sales by order date</h2>
+<p class="muted">Latest 14 dates with completed paid orders · UTC dates</p>
+<div class="sales-chart">{% set max_sales = (stats.daily|map(attribute='sales')|max) if stats.daily else 1 %}
+{% for day in stats.daily %}<div class="chart-row">
+<label for="day-{{ loop.index }}">{{ day.day }}</label>
+<meter id="day-{{ loop.index }}" min="0" max="{{ max_sales }}" value="{{ day.sales }}">{{ day.sales|peso }}</meter>
+<strong>{{ day.sales|peso }}</strong>
+</div>{% else %}<p>No completed paid sales yet. Complete an order to see your first bar.</p>{% endfor %}</div>
+</section>
+<section class="panel table-wrap">
+<h2>Best-selling baked goods</h2>
+<table>
+<thead>
+<tr>
+<th>Product at purchase</th>
+<th>Units</th>
+<th>Sales</th>
+</tr>
+</thead>
+<tbody>{% for item in stats.best %}<tr>
+<td>{{ item.product_name }}</td>
+<td>{{ item.units }}</td>
+<td>{{ item.sales|peso }}</td>
+</tr>{% else %}<tr>
+<td colspan="3">Your bestsellers will appear here.</td>
+</tr>{% endfor %}</tbody>
+</table>
+</section>
+</div>
+<p>
+<a href="{{ url_for('admin.inquiries') }}">Customer inquiries →</a> · <a href="{{ url_for('admin.index') }}">Account and framework administration →</a>
+</p>{% endblock %}

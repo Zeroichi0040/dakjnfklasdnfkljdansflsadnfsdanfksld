@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% from 'components/pagination.html' import pager %}
+{% block title %}{{ 'Audit log' if admin_audit else 'Activity' }}{% endblock %}
+{% block content %}
+  <header class="page-heading">
+    <div>
+      <p class="eyebrow">{{ 'ADMINISTRATION' if admin_audit else 'YOUR ACCOUNT' }}</p>
+      <h1>{{ 'Audit log' if admin_audit else 'Activity' }}</h1>
+      <p>A record of application changes.</p>
+    </div>
+  </header>
+  <section class="panel">
+    <ul class="entry-list">
+      {% for entry in pagination.items %}
+        <li>
+          <div>
+            <strong>{{ entry.action|replace('.', ' · ') }}</strong>
+            <p>{{ entry.subject }}{% if admin_audit %} · Account {{ entry.user_id or 'unavailable' }}{% endif %}</p>
+          </div>
+          <time>{{ entry.created_at|date_label }}</time>
+        </li>
+      {% else %}
+        <li>No activity yet.</li>
+      {% endfor %}
+    </ul>
+  </section>{{ pager(pagination) }}{% endblock %}

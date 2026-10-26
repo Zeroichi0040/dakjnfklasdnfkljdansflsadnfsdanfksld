@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Open the Flask Fullstack Framework</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f6f7fb;color:#182033;font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}header{background:#131b2e;color:white;padding:60px max(24px,calc((100vw - 1080px)/2))}header p{max-width:760px;color:#c5cce0}h1{font-size:clamp(34px,5vw,58px);line-height:1.1;letter-spacing:-2px;margin:16px 0}h2{font-size:26px;letter-spacing:-.6px;margin-top:32px}h3{margin-top:0}main{max-width:1128px;margin:auto;padding:26px 24px 60px}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:750;color:#b4adff}.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.card{background:white;border:1px solid #e3e7ef;border-radius:14px;padding:26px}.step{display:flex;gap:15px;margin:22px 0}.number{flex:none;width:30px;height:30px;border-radius:50%;background:#eeedff;color:#4f46e5;text-align:center;font-weight:750}.step p{margin:0 0 8px}a{color:#4f46e5;text-underline-offset:3px}code{font:14px/1.5 ui-monospace,Consolas,monospace;background:#eeedff;padding:3px 6px;border-radius:4px;overflow-wrap:anywhere}pre{background:#131b2e;color:#f0f1fc;border-radius:9px;padding:18px;overflow:auto;white-space:pre-wrap}pre code{background:none;padding:0;color:inherit}.note{padding:18px 22px;background:#eeedff;border-left:4px solid #4f46e5;border-radius:5px;margin:22px 0}.button{display:inline-block;background:#a89fff;color:#131b2e;padding:11px 18px;border-radius:8px;text-decoration:none;font-weight:750}table{width:100%;border-collapse:collapse}th,td{padding:12px 8px;border-bottom:1px solid #e3e7ef;vertical-align:top;text-align:left}th{font-size:13px}footer{font-size:13px;color:#647089;margin-top:30px}@media(max-width:720px){.grid{grid-template-columns:1fr}header{padding:40px 24px}.card{padding:20px}h1{letter-spacing:-1px}table{font-size:14px}}
+  </style>
+</head>
+<body>
+<header><div class="eyebrow">FLASK FULLSTACK FRAMEWORK · 3.0</div><h1>Your application.<br>A reusable foundation.</h1><p>A Flask backend, SQL database, rendered frontend, browser API client, account system, and resource engine. Add a feature by defining its data and rules; the framework connects its forms, pages, API, permissions, and documentation.</p><a class="button" href="#start">Start the application ↓</a></header>
+<main>
+  <div class="note"><strong>This is the opening guide.</strong> The application runs through Python. Extract the ZIP into a new folder, then start its server using the steps below. Do not open individual frontend templates as a website.</div>
+  <h2 id="start">Open it in three steps</h2>
+  <div class="grid">
+    <section class="card"><h3>Windows</h3>
+      <div class="step"><span class="number">1</span><div><p><strong>Have Python 3.12 or 3.13 installed.</strong></p><p>If Python Install Manager reports a missing runtime, run:</p><pre><code>py install 3.13</code></pre><p>Or install Python from <a href="https://www.python.org/downloads/">python.org</a>.</p></div></div>
+      <div class="step"><span class="number">2</span><div><p><strong>Double-click SETUP_WINDOWS.bat.</strong></p><p>Wait for <strong>SETUP COMPLETE</strong>. First setup needs internet. In PowerShell:</p><pre><code>.\SETUP_WINDOWS.bat</code></pre><p>Direct alternative with your installed version:</p><pre><code>py -3.12 scripts\bootstrap.py</code></pre></div></div>
+      <div class="step"><span class="number">3</span><div><p><strong>Double-click START_WEBSITE.bat.</strong></p><pre><code>.\START_WEBSITE.bat</code></pre><p>Open <a href="http://127.0.0.1:5000">http://127.0.0.1:5000</a> and create your account.</p></div></div>
+    </section>
+    <section class="card"><h3>macOS / Linux</h3>
+      <div class="step"><span class="number">1</span><div><p><strong>Install Python 3.12 or 3.13.</strong></p><p>Supported range: 3.11–3.14. Open a terminal in the extracted folder.</p></div></div>
+      <div class="step"><span class="number">2</span><div><p><strong>Install and prepare the database.</strong></p><pre><code>bash setup.sh</code></pre><p>Setup creates a private environment, unique settings, and a migrated SQL database.</p></div></div>
+      <div class="step"><span class="number">3</span><div><p><strong>Start the application.</strong></p><pre><code>bash start.sh</code></pre><p>Open <a href="http://127.0.0.1:5000">http://127.0.0.1:5000</a>. Keep the terminal open; Ctrl+C stops the server.</p></div></div>
+    </section>
+  </div>
+  <h2>Build a new feature</h2>
+  <p>Use your project's Python, or activate <code>.venv</code> first:</p>
+  <pre><code>python manage.py make-resource products --field name:text --field price:decimal --field stock:integer
+python manage.py db migrate -m "Add products"
+# Review the new migration, then:
+python manage.py db upgrade</code></pre>
+  <p>Restart. Visit <code>/app/products</code> for its frontend and <code>/api/v1/products</code> for its API. Forms, list/detail/edit/delete pages, validation, policies, pagination, export, navigation, and OpenAPI are connected by the resource engine.</p>
+  <h2>Where to edit</h2>
+  <section class="card"><table><thead><tr><th>You want to change</th><th>Open</th></tr></thead><tbody>
+    <tr><td>Pages, appearance and browser behavior</td><td><code>frontend/</code></td></tr>
+    <tr><td>A feature and its business rules</td><td><code>backend/modules/&lt;feature&gt;/</code></td></tr>
+    <tr><td>The reusable engine</td><td><code>backend/framework/</code></td></tr>
+    <tr><td>Stored fields and schema changes</td><td><code>database/models/</code> and <code>database/migrations/</code></td></tr>
+    <tr><td>Site name, origin and private settings</td><td><code>.env</code>, created by setup</td></tr>
+    <tr><td>Enabled application modules</td><td><code>backend/module_registry.py</code></td></tr>
+  </tbody></table></section>
+  <h2>Try the working full request cycle</h2>
+  <ol><li>Sign up and add a private note through its form.</li><li>Use Refresh on its list: the browser reads the real JSON API.</li><li>Restart the app and confirm the record remains in SQL.</li><li>Sign in as another account and confirm it cannot read that record.</li><li>Create an administrator, publish a Website page, and visit its public URL while signed out.</li></ol>
+  <div class="grid"><section class="card"><h3>Create an administrator</h3><pre><code># Windows
+.venv\Scripts\python.exe manage.py create-admin
+# macOS / Linux
+.venv/bin/python manage.py create-admin</code></pre><p>The command prompts for your own credentials. No shared account is installed.</p></section><section class="card"><h3>Useful guides</h3><p><a href="docs/QUICKSTART.md">Open and troubleshoot</a><br><a href="docs/BUILD_A_FEATURE.md">Build a feature</a><br><a href="docs/FRAMEWORK_API.md">Framework API</a><br><a href="docs/FREE_DEPLOYMENT.md">Free deployment</a><br><a href="docs/OPERATIONS.md">Operations and backups</a><br><a href="docs/VALIDATION.md">Verification record</a></p></section></div>
+  <div class="note"><strong>No paid service is required locally.</strong> Free hosting options and their quotas/renewal rules are documented. Free plans do not guarantee unlimited commercial capacity. Keep private settings, databases, outbox mail and backups out of Git.</div>
+  <footer>Flask Fullstack Framework · Markdown guides open in any text editor or VS Code. README.md contains the complete guide index.</footer>
+</main>
+</body>
+</html>

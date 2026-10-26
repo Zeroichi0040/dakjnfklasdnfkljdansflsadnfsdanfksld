@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Your cart{% endblock %}
+{% block content %}
+<header class="page-heading">
+<div>
+<p class="eyebrow">SAVE A LITTLE ROOM FOR JOY</p>
+<h1>Your basket.</h1>
+</div>
+<a href="{{ url_for('bakery.products') }}">Keep browsing →</a>
+</header>
+{% if rows %}<div class="checkout-layout">
+<section class="panel">{% for row in rows %}<article class="cart-row">
+<img src="{{ url_for('static', filename='images/bakery/' ~ row.product.image ~ '.svg') }}" alt="" width="100" height="80">
+<div>
+<h2>
+<a href="{{ url_for('bakery.product', product_id=row.product.id) }}">{{ row.product.name }}</a>
+</h2>
+<p>{{ row.product.price|peso }} each</p>{% if not row.available %}<p class="error-text">Stock changed: only {{ row.product.stock if row.product.active else 0 }} available. Update or remove this item.</p>{% endif %}<form class="cart-controls" method="post" action="{{ url_for('bakery.cart_change', product_id=row.product.id) }}">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<label for="qty-{{ row.product.id }}">Quantity</label>
+<input id="qty-{{ row.product.id }}" type="number" min="1" max="99" name="quantity" value="{{ row.quantity }}" required>
+<button class="button quiet small" name="action" value="update">Update</button>
+<button class="button quiet small" name="action" value="remove" formnovalidate>Remove</button>
+</form>
+</div>
+<strong>{{ row.subtotal|peso }}</strong>
+</article>{% endfor %}</section>
+<aside class="panel order-summary">
+<p class="eyebrow">YOUR ORDER</p>
+<h2>A basket of happiness.</h2>
+<div class="total-row">
+<span>Subtotal</span>
+<strong>{{ total|peso }}</strong>
+</div>
+<div class="total-row">
+<span>Pickup</span>
+<span>Free</span>
+</div>
+<div class="total-row grand-total">
+<span>Total</span>
+<strong>{{ total|peso }}</strong>
+</div>
+<a class="button primary" href="{{ url_for('bakery.checkout') }}">Continue to checkout →</a>
+<p class="muted">Current prices and stock are checked again at checkout. Payment is simulated.</p>
+</aside>
+</div>
+{% else %}<section class="bakery-empty">
+<span class="empty-symbol" aria-hidden="true">♧</span>
+<h2>Your basket is waiting for something lovely.</h2>
+<p>Fresh bread, a flaky pastry, a cookie or two?</p>
+<a class="button primary" href="{{ url_for('bakery.products') }}">Explore the bakery →</a>
+</section>{% endif %}
+<form method="post" action="{{ url_for('bakery.cart_clear') }}" data-confirm="Clear everything from your cart?">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<button class="button quiet small">Clear cart</button>
+</form>
+{% endblock %}

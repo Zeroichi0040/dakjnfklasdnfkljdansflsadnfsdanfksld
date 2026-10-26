@@ -1,0 +1,13 @@
+{% macro pager(pagination) %}
+  {% if pagination.pages > 1 %}
+    <nav class="pager" aria-label="Pagination">
+      {% if pagination.has_prev %}
+        <a class="button quiet small" href="{{ page_url(pagination.prev_num) }}">Previous</a>
+      {% endif %}
+      <span>Page {{ pagination.page }} of {{ pagination.pages }}</span>
+      {% if pagination.has_next %}
+        <a class="button quiet small" href="{{ page_url(pagination.next_num) }}">Next</a>
+      {% endif %}
+    </nav>
+  {% endif %}
+{% endmacro %}

@@ -1,0 +1,37 @@
+FLASK FULLSTACK FRAMEWORK
+
+1. Extract the ZIP. Open the extracted Flask_Fullstack_Framework folder.
+2. Open OPEN_ME_FIRST.html for the opening guide.
+3. Windows: double-click SETUP_WINDOWS.bat; wait for SETUP COMPLETE.
+   PowerShell: .\SETUP_WINDOWS.bat
+   If Python is missing: py install 3.13
+   Direct setup alternative: py -3.13 scripts\bootstrap.py
+4. Start with START_WEBSITE.bat, or .\START_WEBSITE.bat in PowerShell.
+5. Open http://127.0.0.1:5000 and create your own account.
+
+macOS/Linux: bash setup.sh, then bash start.sh.
+Supported Python: 3.11-3.14. Recommended: 3.12 or 3.13.
+First setup requires internet. Keep the website terminal open; Ctrl+C stops it.
+
+YOUR APPLICATION
+frontend/                  Pages, CSS, JavaScript and components
+backend/framework/         Reusable resource engine
+backend/modules/           Features and your business rules
+database/models/           SQLAlchemy models
+database/migrations/       Versioned schema changes
+docs/                      Opening, customization and deployment guides
+
+CREATE AN ADMINISTRATOR
+.venv\Scripts\python.exe manage.py create-admin
+The command prompts for your own email/password. No shared account exists.
+
+CREATE A FEATURE (using the project's Python)
+python manage.py make-resource products --field name:text --field price:decimal
+python manage.py db migrate -m "Add products"
+Review the migration, then: python manage.py db upgrade
+Restart. HTML: /app/products | JSON: /api/v1/products
+Forms, CRUD routes, permissions, navigation and OpenAPI are generated together.
+
+Never upload .env, .venv, runtime database files, private mail or backups.
+The included .gitignore excludes them. Keep .env.example in your source repository.
+Free hosting instructions and plan limitations are in docs/FREE_DEPLOYMENT.md.

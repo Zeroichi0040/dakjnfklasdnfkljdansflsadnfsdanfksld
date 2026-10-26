@@ -1,0 +1,28 @@
+{% macro cards(products) %}
+<div class="bakery-grid">
+{% for product in products %}
+<article class="bake-card">
+  <a class="bake-image {{ product.image }}" href="{{ url_for('bakery.product', product_id=product.id) }}">
+<img src="{{ url_for('static', filename='images/bakery/' ~ product.image ~ '.svg') }}" alt="Illustration of {{ product.name }}" loading="lazy" width="480" height="360">{% if not product.stock %}<span class="stock-label">Back soon</span>{% endif %}</a>
+  <div class="bake-card-content">
+<span class="eyebrow">{{ product.category.name }}</span>
+<h3>
+<a href="{{ url_for('bakery.product', product_id=product.id) }}">{{ product.name }}</a>
+</h3>
+<p>{{ product.description|truncate(105) }}</p>
+<div class="bake-card-bottom">
+<strong>{{ product.price|peso }}</strong>
+  <form method="post" action="{{ url_for('bakery.cart_change', product_id=product.id) }}">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<input type="hidden" name="quantity" value="1">
+<button class="button small {{ 'primary' if product.stock else 'quiet' }}" {% if not product.stock %}disabled{% endif %} aria-label="Add {{ product.name }} to cart">{{ 'Add +' if product.stock else 'Sold out' }}</button>
+</form>
+</div>
+</div>
+</article>
+{% else %}<div class="bakery-empty">
+<h2>Nothing in the oven here yet.</h2>
+<p>Try a different search or category.</p>
+<a href="{{ url_for('bakery.products') }}">View all baked goods →</a>
+</div>{% endfor %}
+</div>{% endmacro %}

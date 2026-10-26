@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+  <header class="page-heading">
+    <div>
+      <p class="eyebrow">OVERVIEW</p>
+      <h1>Hello, {{ current_user.display_name }}.</h1>
+      <p>Your next good moment is fresh from the oven. <a href="{{ url_for('bakery.products') }}">Explore the bakery →</a></p><p>{{ current_user.email }} · <a href="{{ url_for('account.profile') }}">Your account</a></p>
+    </div>
+    <a class="button quiet" href="{{ url_for('account.profile') }}">Account settings</a>
+  </header>
+  <section class="panel"><div class="panel-heading"><h2>Your recent orders</h2><a href="{{ url_for('bakery.orders') }}">Full order history →</a></div><ul class="entry-list">{% for order in orders %}<li><a href="{{ url_for('bakery.order', order_id=order.id) }}">MTH-{{ '%05d'|format(order.id) }}</a><span>{{ order.status|title }} · {{ order.payment.status|title }}</span><strong>{{ order.total|peso }}</strong></li>{% else %}<li>No orders yet. <a href="{{ url_for('bakery.products') }}">Find something lovely →</a></li>{% endfor %}</ul></section>
+  <h2 class="framework-heading">Your workspace</h2>
+  <section class="metric-grid" aria-label="Application overview">
+    {% for card in cards %}
+      <a class="metric-card"
+         href="{{ url_for(card.resource.key + '.index') }}">
+        <span>{{ card.resource.label }}</span>
+        <strong>{{ card.total }}</strong>
+        <small>View all →</small>
+      </a>
+    {% endfor %}
+    <a class="metric-card" href="{{ url_for('files.index') }}">
+      <span>Private images</span>
+      <strong>{{ file_count }}</strong>
+      <small>Open file library →</small>
+    </a>
+  </section>
+  <div class="dashboard-grid">
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Recent activity</h2>
+        <a href="{{ url_for('dashboard.activity') }}">View all</a>
+      </div>
+      <ul class="entry-list">
+        {% for entry in recent %}
+          <li>
+            <div>
+              <span class="activity-dot"></span>
+              <strong>{{ entry.action|replace('.', ' · ') }}</strong>
+              <p>{{ entry.subject }}</p>
+            </div>
+            <time>{{ entry.created_at|date_label }}</time>
+          </li>
+        {% else %}
+          <li>No recent activity.</li>
+        {% endfor %}
+      </ul>
+    </section>
+    <section class="panel">
+      <h2>Quick actions</h2>
+      <div class="quick-actions">
+        {% for card in cards %}
+          <a href="{{ url_for(card.resource.key + '.create_page') }}">
+            <span>+</span>Add {{ card.resource.singular.lower() }}</a>
+        {% endfor %}
+        <a href="{{ url_for('files.index') }}">
+          <span>↑</span>Upload an image</a>
+        <a href="{{ url_for('public.home') }}">
+          <span>↗</span>View website</a>
+      </div>
+    </section>
+  </div>
+{% endblock %}

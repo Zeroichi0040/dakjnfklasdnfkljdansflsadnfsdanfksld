@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% from 'components/pagination.html' import pager %}
+{% block title %}Messages{% endblock %}
+{% block content %}
+  <header class="page-heading">
+    <div>
+      <p class="eyebrow">ADMINISTRATION</p>
+      <h1>Contact messages</h1>
+    </div>
+  </header>
+  {% for inquiry in pagination.items %}
+    <article class="panel inquiry">
+      <header>
+        <div>
+          <h2>{{ inquiry.name }}</h2>
+          <p>{{ inquiry.email }} · {{ inquiry.created_at|date_label }}</p>
+        </div>
+        <span class="label-tag">{{ 'Resolved' if inquiry.resolved else 'Open' }}</span>
+      </header>
+      <p class="preserve-lines">{{ inquiry.message }}</p>
+      {% if not inquiry.resolved %}
+        <form method="post"
+              action="{{ url_for('admin.resolve_inquiry',inquiry_id=inquiry.id) }}">
+          {{ form.hidden_tag() }}<button class="button quiet" type="submit">Mark resolved</button>
+        </form>
+      {% endif %}
+    </article>
+  {% else %}
+    <section class="empty-state">
+      <h2>No messages yet.</h2>
+      <p>Messages from the contact page will appear here.</p>
+    </section>
+  {% endfor %}{{ pager(pagination) }}{% endblock %}

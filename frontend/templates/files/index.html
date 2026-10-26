@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% from 'components/forms.html' import field %}
+{% from 'components/pagination.html' import pager %}
+{% block title %}My images{% endblock %}
+{% block content %}
+  <header class="page-heading">
+    <div>
+      <p class="eyebrow">YOUR PRIVATE FILES</p>
+      <h1>My images</h1>
+      <p>PNG, JPEG, or WebP. Up to 2 MiB per image and 20 MiB per account.</p>
+    </div>
+    <span class="hint">{{ '%.1f'|format(current_user.storage_bytes / 1048576) }} MiB used</span>
+  </header>
+  <form class="panel upload-form" method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {{ field(form.file,accept='image/png,image/jpeg,image/webp') }}
+    {{ form.submit(class_='button primary') }}
+  </form>
+  <section class="panel">
+    <ul class="entry-list">
+      {% for file in pagination.items %}
+        <li>
+          <div>
+            <h3>{{ file.filename }}</h3>
+            <p>{{ '%.1f'|format(file.size / 1024) }} KiB · {{ file.created_at|date_label }}</p>
+          </div>
+          <div class="actions">
+            <a href="{{ url_for('files.download',identifier=file.id) }}">Download</a>
+            <form method="post"
+                  action="{{ url_for('files.delete',identifier=file.id) }}"
+                  data-confirm="Permanently delete this image?">
+              {{ action_form.hidden_tag() }}<button class="text-button danger" type="submit">Delete</button>
+            </form>
+          </div>
+        </li>
+      {% else %}
+        <li>No images yet. Uploaded images are private to your account.</li>
+      {% endfor %}
+    </ul>
+  </section>{{ pager(pagination) }}{% endblock %}

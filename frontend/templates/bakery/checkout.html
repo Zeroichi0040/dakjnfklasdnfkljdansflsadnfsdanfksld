@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+<header class="page-heading">
+<div>
+<p class="eyebrow">ALMOST YOURS</p>
+<h1>Made for your next good moment.</h1>
+<p>Pickup only. Your receipt is saved to your account.</p>
+</div>
+</header>
+<div class="notice info">
+<strong>Payment demonstration only.</strong> No money moves. Never enter real card details, CVVs, GCash PINs or financial credentials.</div>
+<div class="checkout-layout">
+<form class="panel bakery-form" method="post" data-busy="Recording your order…">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<input type="hidden" name="checkout_token" value="{{ token }}">
+<h2>Pickup details</h2>
+<label for="customer_name">Name for pickup</label>
+<input id="customer_name" name="customer_name" maxlength="80" required autocomplete="name" value="{{ values.get('customer_name', current_user.display_name) }}">
+<label for="phone">Contact phone</label>
+<input id="phone" name="phone" type="tel" minlength="7" maxlength="24" pattern="[+0-9 \(\)\-]{7,24}" required autocomplete="tel" value="{{ values.get('phone','') }}">
+<label for="pickup_note">Pickup note <span class="muted">(optional)</span>
+</label>
+<textarea id="pickup_note" name="pickup_note" maxlength="300" rows="3" placeholder="Anything we should know? No sensitive information, please.">{{ values.get('pickup_note','') }}</textarea>
+<fieldset>
+<legend>Payment method · demonstration</legend>{% for key,label in payment_methods.items() %}<label class="radio-card">
+<input type="radio" name="method" value="{{ key }}" {% if values.get('method','gcash') == key %}checked{% endif %} required>
+<span>{{ label }}</span>
+</label>{% endfor %}</fieldset>
+<label for="scenario">Simulated result</label>
+<select name="scenario" id="scenario">{% for key,label in payment_scenarios.items() %}<option value="{{ key }}" {% if values.get('scenario','success') == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+<p class="muted">Cash on pickup requires “Successful payment” to reserve your order, but remains <strong>unpaid</strong> until an administrator records simulated cash collection. Failed, insufficient or cancelled digital payments cancel the order and return stock immediately.</p>
+<button class="button primary" type="submit">Place demonstration order · {{ total|peso }}</button>
+<p class="submit-feedback" role="status" aria-live="polite">
+</p>
+</form>
+<aside class="panel order-summary">
+<h2>Your basket</h2>{% for row in rows %}<div class="total-row">
+<span>{{ row.product.name }} × {{ row.quantity }}</span>
+<strong>{{ row.subtotal|peso }}</strong>
+</div>{% endfor %}<div class="total-row grand-total">
+<span>Total</span>
+<strong>{{ total|peso }}</strong>
+</div>
+<p>Pickup at Mithi Bakehouse<br>Educational sample store</p>
+<a href="{{ url_for('bakery.cart') }}">Edit basket</a>
+</aside>
+</div>{% endblock %}

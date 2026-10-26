@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ status }}{% endblock %}
+{% block content %}
+  <section class="prose error-page">
+    <p class="eyebrow">{{ status }}</p>
+    <h1>{{ 'Page not found' if status == 404 else 'Please try again' }}</h1>
+    <p class="lead">{{ message }}</p>
+    {% for name,messages in (fields or {}).items() %}
+      {% for detail in messages %}
+        <p class="field-error">{{ name }}: {{ detail }}</p>
+      {% endfor %}
+    {% endfor %}
+    <div class="actions">
+      <a class="button primary"
+         href="{{ url_for('dashboard.index') if current_user.is_authenticated else url_for('public.home') }}">{{ 'Dashboard' if current_user.is_authenticated else 'Go home' }}</a>
+    </div>
+  </section>
+{% endblock %}

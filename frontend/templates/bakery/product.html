@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% from "bakery/_cards.html" import cards with context %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+<a class="text-link" href="{{ url_for('bakery.products') }}">← Back to the bakery</a>
+<section class="product-detail">
+<div class="product-art bake-image {{ product.image }}">
+<img src="{{ url_for('static', filename='images/bakery/' ~ product.image ~ '.svg') }}" alt="Illustration of {{ product.name }}" width="480" height="360">
+</div>
+<div>
+<p class="eyebrow">{{ product.category.name }} · MADE WITH CARE</p>
+<h1>{{ product.name }}</h1>
+<p class="product-price">{{ product.price|peso }}</p>
+<p>{{ product.description }}</p>
+<p class="availability">{{ (product.stock ~ ' available for pickup') if product.stock else 'Sold out · back in the oven soon' }}</p>
+<form method="post" action="{{ url_for('bakery.cart_change', product_id=product.id) }}" class="product-buy">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<div>
+<label for="quantity">Quantity</label>
+<input id="quantity" name="quantity" type="number" min="1" max="{{ [product.stock,99]|min }}" value="1" required {% if not product.stock %}disabled{% endif %}>
+</div>
+<button class="button primary" {% if not product.stock %}disabled{% endif %}>Add to cart →</button>
+</form>
+<div class="product-promise">Pickup only · Freshly prepared · No delivery fees<br>Illustration shown. Sample product, demonstration ordering.</div>
+</div>
+</section>
+{% if related %}<section class="bakery-section">
+<h2>A lovely little pairing.</h2>{{ cards(related) }}</section>{% endif %}
+{% endblock %}

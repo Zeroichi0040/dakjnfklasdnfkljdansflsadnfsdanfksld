@@ -1,0 +1,16 @@
+{% macro field(input, help='', autocomplete='', accept='') %}
+  <div class="field">
+    {{ input.label }}
+    {% if input.type == "TextAreaField" %}{{ input(class_='input',rows=5,aria_describedby=input.id ~ '-hint') }}
+    {% elif input.type == "FileField" %}{{ input(class_='input',accept=accept,aria_describedby=input.id ~ '-hint') }}
+{% else %}{{ input(class_='input',autocomplete=autocomplete,aria_describedby=input.id ~ '-hint') }}{% endif %}
+<div id="{{ input.id }}-hint">
+  {% if help %}
+    <small class="hint">{{ help }}</small>
+  {% endif %}
+  {% for error in input.errors %}
+    <p class="field-error" role="alert">{{ error }}</p>
+  {% endfor %}
+  </div>
+  </div>
+{% endmacro %}

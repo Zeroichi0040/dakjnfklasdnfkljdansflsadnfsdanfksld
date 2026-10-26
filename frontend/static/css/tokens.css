@@ -1,0 +1,15 @@
+/* Edit your brand here. Local assets and system fonts need no subscription. */
+:root {
+  --font: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ink: #182033;
+  --muted: #647089;
+  --paper: #f6f7fb;
+  --surface: #ffffff;
+  --line: #e3e7ef;
+  --accent: #4f46e5;
+  --accent-soft: #eeedff;
+  --danger: #b42338;
+  --success: #137a58;
+  --sidebar: #131b2e;
+  --radius: 12px;
+}

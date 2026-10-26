@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+  <article class="prose published-page">
+    <a class="back-link" href="{{ url_for('public.home') }}">← Home</a>
+    <p class="eyebrow">{{ page.updated_at|date_label }}</p>
+    <h1>{{ page.title }}</h1>
+    <div class="preserve-lines">{{ page.body }}</div>
+  </article>
+{% endblock %}

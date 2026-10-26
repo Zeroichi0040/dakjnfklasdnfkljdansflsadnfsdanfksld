@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}API reference{% endblock %}
+{% block content %}
+  <article class="prose">
+    <p class="eyebrow">DEVELOPER REFERENCE</p>
+    <h1>Application API</h1>
+    <p>These endpoints use your account session. Changes require an <code>X-CSRFToken</code> header. Fetch <code>/api/v1/csrf</code> first; sign-in rotates the token.</p>
+    <p>
+      <a class="button quiet" href="{{ url_for('api.openapi') }}">OpenAPI 3.1 specification</a>
+    </p>
+    <h2>Registered resources</h2>
+    <div class="table-wrap"><table>
+      <thead>
+        <tr>
+          <th>Resource</th>
+          <th>JSON URL</th>
+          <th>Access policy</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for resource in resources %}
+          <tr>
+            <td>{{ resource.label }}</td>
+            <td>
+              <code>/api/v1/{{ resource.key }}</code>
+            </td>
+            <td>{{ resource.policy.name }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table></div>
+    <p>Each resource supports list, create, read, update, and delete. Updates and deletes require the current record version. Private records remain account-scoped.</p>
+    <h2>Try a request</h2>
+    <p>While signed in, use this in your site's browser console:</p>
+    <pre><code>const { api } = await import('/static/js/api-client.js');
+const result = await api('/api/v1/resources');
+console.log(result.data);</code></pre>
+    <p>List parameters: <code>q</code>, <code>sort</code>, <code>page</code>, and <code>per_page</code> (1–50). Decimal fields use decimal strings for precision. Validation errors return 422; stale versions return 409. The included API guide contains sign-in, CRUD, and file examples.</p>
+  </article>
+{% endblock %}

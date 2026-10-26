@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Manage orders' if administration else 'Your orders' }}{% endblock %}
+{% block content %}
+<header class="page-heading">
+<div>
+<p class="eyebrow">{{ 'BAKEHOUSE ADMINISTRATION' if administration else 'YOUR MITHI MOMENTS' }}</p>
+<h1>{{ 'Order management' if administration else 'Your orders.' }}</h1>
+</div>
+<a class="button primary" href="{{ url_for('bakery.admin_dashboard') if administration else url_for('bakery.products') }}">{{ 'Sales dashboard' if administration else 'Find your next favourite →' }}</a>
+</header>
+{% if administration %}<form class="catalogue-filters" method="get">
+<label for="status">Order status</label>
+<select id="status" name="status">
+<option value="">All statuses</option>{% for state in order_transitions %}<option value="{{ state }}" {% if selected_status == state %}selected{% endif %}>{{ state|title }}</option>{% endfor %}</select>
+<button class="button quiet">Filter</button>
+</form>{% endif %}
+<section class="panel table-wrap">
+<table>
+<thead>
+<tr>
+<th>Order</th>
+<th>Date</th>{% if administration %}<th>Customer</th>{% endif %}<th>Order status</th>
+<th>Payment</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>{% for order in pagination.items %}<tr>
+<td>
+<a href="{{ url_for('bakery.order', order_id=order.id) }}">MTH-{{ '%05d'|format(order.id) }}</a>
+</td>
+<td>{{ order.created_at|date_label }}</td>{% if administration %}<td>{{ order.customer_name }}</td>{% endif %}<td>
+<span class="status-pill {{ order.status }}">{{ order.status|title }}</span>
+</td>
+<td>{{ order.payment.status|title }} · {{ order.payment.method|upper }}</td>
+<td>{{ order.total|peso }}</td>
+</tr>{% else %}<tr>
+<td colspan="6">No orders yet. Your next good moment starts at the bakery.</td>
+</tr>{% endfor %}</tbody>
+</table>
+</section>{% from "components/pagination.html" import pager with context %}{{ pager(pagination) }}{% endblock %}

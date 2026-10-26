@@ -1,0 +1,996 @@
+/* Mithi: warm paper, guava red, dark cocoa. Local/system fonts and original art. */
+:root {
+  --ink:#342c27;
+  --muted:#71645b;
+  --paper:#faf7f0;
+  --surface:#fffdf8;
+  --line:#e6dfd4;
+  --accent:#9c3527;
+  --accent-soft:#f5e6dc;
+  --sidebar:#332f27;
+  --radius:10px;
+  --success:#386344;
+  --font:"Segoe UI",system-ui,sans-serif;
+}
+body {
+  color:var(--ink);
+}
+h1,h2,h3 {
+  letter-spacing:-.035em;
+}
+h1,h2 {
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:500;
+}
+a {
+  color:var(--accent);
+}
+.topbar {
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+}
+.button.primary {
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fffdf8;
+  box-shadow:none;
+}
+.button.primary:hover {
+  background:#7c291f;
+}
+.button:disabled {
+  cursor:not-allowed;
+  opacity:.6;
+}
+.public-site .main-content {
+  width:100%;
+  max-width:1440px;
+  padding:0 5%;
+  margin:auto;
+}
+.public-site .topbar {
+  padding:18px 5%;
+  min-height:90px;
+}
+.public-site .public-nav {
+  gap:28px;
+}
+.bakery-wordmark {
+  font-family:Georgia,serif;
+  font-size:39px;
+  line-height:.8;
+  letter-spacing:-2px;
+  font-weight:600;
+  color:#71372a;
+  display:flex;
+  flex-direction:column;
+}
+.bakery-wordmark span {
+  font:9px/2.3 var(--font);
+  letter-spacing:4px;
+  padding-left:3px;
+}
+.bakery-hero {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3%;
+  align-items:center;
+  padding:45px 0 56px;
+}
+.hero-copy h1 {
+  font-size:clamp(42px,5.7vw,85px);
+  line-height:1.06;
+  margin:25px 0;
+  letter-spacing:-.045em;
+}
+.hero-copy h1 em {
+  color:var(--accent);
+  font-weight:400;
+}
+.hero-copy>p:not(.eyebrow) {
+  font-size:17px;
+  line-height:1.8;
+  max-width:450px;
+}
+.hero-copy .actions {
+  margin-top:28px;
+  gap:25px;
+}
+.hero-copy .hero-caption {
+  font-size:12px!important;
+  color:var(--muted);
+  margin-top:25px;
+}
+.eyebrow {
+  font-size:10px;
+  letter-spacing:1.9px;
+  font-weight:700;
+  color:var(--accent);
+}
+.sun-dot {
+  display:inline-block;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#b95b2d;
+  margin-right:7px;
+}
+.hero-art {
+  position:relative;
+  min-width:0;
+  background:#eadaca;
+  border-radius:50% 50% 7px 7px;
+  isolation:isolate;
+}
+.hero-art>img {
+  display:block;
+  width:100%;
+  height:auto;
+}
+.hero-roundel {
+  position:absolute;
+  right:-8px;
+  top:17px;
+  width:106px;
+  height:106px;
+  border-radius:50%;
+  background:#8c3428;
+  color:#fff3dc;
+  display:grid;
+  place-content:center;
+  text-align:center;
+  font-size:11px;
+  letter-spacing:1.8px;
+  transform:rotate(13deg);
+  z-index:1;
+  border:4px double #ebbb96;
+}
+.hero-note {
+  position:absolute;
+  bottom:4%;
+  left:5%;
+  background:#fff9e8;
+  padding:15px 21px;
+  transform:rotate(-4deg);
+  font-family:Georgia,serif;
+  font-size:19px;
+  box-shadow:0 5px 15px #573a2210;
+}
+.hero-note span {
+  font:10px var(--font);
+  color:var(--muted);
+}
+.bakery-ribbon {
+  display:flex;
+  justify-content:space-around;
+  gap:20px;
+  align-items:center;
+  border-block:1px solid var(--line);
+  padding:22px 0;
+  font-size:12px;
+  color:#74513f;
+}
+.bakery-ribbon span[aria-hidden] {
+  font-size:20px;
+  color:#9c3527;
+}
+.bakery-section {
+  padding:55px 0;
+}
+.section-heading {
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:25px;
+}
+.section-heading h2,.category-section h2 {
+  font-size:clamp(30px,3vw,43px);
+  margin:7px 0;
+}
+.text-link {
+  font-size:13px;
+  font-weight:600;
+  text-decoration:none;
+}
+.bakery-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:22px;
+}
+.bake-card {
+  min-width:0;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:8px;
+  overflow:hidden;
+  transition:transform .2s,box-shadow .2s;
+}
+.bake-card:hover {
+  transform:translateY(-3px);
+  box-shadow:0 8px 24px #49332212;
+}
+.bake-image {
+  display:block;
+  position:relative;
+  background:#ede2d0;
+  overflow:hidden;
+}
+.bake-image.pastry {
+  background:#f1e5d6;
+}
+.bake-image.cake {
+  background:#ece2e7;
+}
+.bake-image.cookie {
+  background:#e8e5d8;
+}
+.bake-image.bun {
+  background:#f0dfca;
+}
+.bake-image img {
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:4/3;
+  object-fit:contain;
+  transition:transform .3s;
+}
+.bake-card:hover .bake-image img {
+  transform:scale(1.035);
+}
+.stock-label {
+  position:absolute;
+  top:13px;
+  left:13px;
+  background:#fffdf8;
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:11px;
+}
+.bake-card-content {
+  padding:20px;
+}
+.bake-card-content .eyebrow {
+  font-size:9px;
+  letter-spacing:1.3px;
+}
+.bake-card h3 {
+  font:500 20px/1.25 Georgia,serif;
+  margin:10px 0;
+}
+.bake-card h3 a {
+  color:var(--ink);
+  text-decoration:none;
+}
+.bake-card p {
+  font-size:12px;
+  line-height:1.7;
+  color:var(--muted);
+  margin-bottom:19px;
+}
+.bake-card-bottom {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+}
+.bake-card-bottom strong {
+  font-size:16px;
+}
+.bake-card-bottom .button {
+  font-size:11px;
+  padding:8px 12px;
+  min-height:36px;
+}
+.category-section {
+  text-align:center;
+  padding:35px 0 50px;
+}
+.category-links {
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-top:28px;
+}
+.category-links a {
+  padding:18px 25px;
+  border:1px solid #d8c7b2;
+  border-radius:40px;
+  text-decoration:none;
+  color:var(--ink);
+  font-size:13px;
+}
+.category-links a:hover {
+  background:#eddfc8;
+}
+.category-links span {
+  margin-left:20px;
+  color:var(--accent);
+}
+.bakery-story {
+  display:grid;
+  grid-template-columns:1fr 1.2fr;
+  gap:10%;
+  background:#efe8db;
+  border-radius:12px;
+  padding:55px 8%;
+  align-items:center;
+  margin:10px 0 50px;
+}
+.bakery-story h2 {
+  font-size:44px;
+  line-height:1.1;
+  margin:15px 0;
+}
+.bakery-story p:not(.eyebrow) {
+  font-size:14px;
+  line-height:1.8;
+}
+.story-stamp {
+  background:#677056;
+  aspect-ratio:1;
+  border-radius:50%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-family:Georgia,serif;
+  font-size:70px;
+  line-height:1.4;
+  color:#f8eed7;
+  border:7px double #e0d4ad;
+}
+.story-stamp span {
+  font:10px var(--font);
+  letter-spacing:3px;
+}
+.site-footer {
+  background:#eee7db;
+  margin-top:40px;
+  padding:30px 5%;
+  line-height:1.8;
+}
+.bakery-page-heading {
+  text-align:center;
+  padding:50px 0 25px;
+}
+.bakery-page-heading h1 {
+  font-size:60px;
+  margin:10px 0;
+}
+.catalogue-filters {
+  display:flex;
+  gap:16px;
+  align-items:end;
+  flex-wrap:wrap;
+  background:#f0eadf;
+  padding:20px;
+  border-radius:8px;
+  margin:15px 0 26px;
+}
+.catalogue-filters>div:first-child {
+  flex:1;
+  min-width:180px;
+}
+.catalogue-filters label {
+  display:block;
+  font-size:11px;
+  font-weight:600;
+  margin-bottom:8px;
+}
+.catalogue-filters input,.catalogue-filters select {
+  margin:0;
+  background:var(--surface);
+}
+.bakery-page-heading+.catalogue-filters~.bakery-grid {
+  padding-bottom:30px;
+}
+.product-detail {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7%;
+  align-items:center;
+  padding:35px 0;
+}
+.product-detail h1 {
+  font-size:clamp(30px,4vw,55px);
+  line-height:1.1;
+  margin:15px 0;
+}
+.product-detail p {
+  line-height:1.8;
+}
+.product-art {
+  border-radius:12px;
+}
+.product-price {
+  font-size:25px;
+  font-weight:600;
+  color:var(--accent);
+}
+.product-buy {
+  display:flex;
+  gap:20px;
+  align-items:end;
+  margin:25px 0;
+}
+.product-buy label {
+  display:block;
+  font-size:12px;
+  margin-bottom:7px;
+}
+.product-buy input {
+  width:85px;
+  margin:0;
+}
+.product-promise {
+  border-top:1px solid var(--line);
+  padding-top:20px;
+  font-size:12px;
+  line-height:1.8;
+  color:var(--muted);
+}
+.availability {
+  font-size:12px;
+  color:var(--success);
+}
+.checkout-layout {
+  display:grid;
+  grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);
+  gap:24px;
+  align-items:start;
+  margin:25px 0;
+}
+.cart-row {
+  display:grid;
+  grid-template-columns:85px minmax(0,1fr) auto;
+  gap:18px;
+  border-bottom:1px solid var(--line);
+  padding:22px 0;
+  align-items:start;
+}
+.cart-row:first-child {
+  padding-top:0;
+}
+.cart-row:last-child {
+  border:0;
+}
+.cart-row img {
+  width:85px;
+  height:85px;
+  border-radius:8px;
+  background:#eee1cb;
+}
+.cart-row h2 {
+  font:500 18px/1.35 Georgia,serif;
+  margin:0;
+}
+.cart-row p {
+  font-size:12px;
+  margin:8px 0;
+}
+.cart-controls {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.cart-controls label {
+  font-size:11px;
+}
+.cart-controls input[type=number] {
+  width:65px;
+  margin:0;
+  padding:8px;
+}
+.cart-controls select {
+  width:auto;
+  margin:0;
+}
+.cart-controls .button {
+  font-size:11px;
+  padding:7px 10px;
+}
+.total-row {
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  margin:20px 0;
+  font-size:13px;
+}
+.total-row strong {
+  white-space:nowrap;
+}
+.grand-total {
+  border-top:1px solid var(--line);
+  padding-top:20px;
+  font-size:18px;
+}
+.order-summary h2 {
+  font-size:27px;
+}
+.order-summary>.button {
+  display:flex;
+  width:100%;
+  font-size:13px;
+  margin-top:25px;
+}
+.muted {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+}
+.bakery-form>label {
+  display:block;
+  margin:19px 0 8px;
+  font-size:12px;
+  font-weight:600;
+}
+.bakery-form>input,.bakery-form>select,.bakery-form>textarea {
+  width:100%;
+  margin:0;
+}
+.bakery-form>button {
+  margin-top:20px;
+}
+.bakery-form fieldset {
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:15px;
+  margin-top:30px;
+}
+.bakery-form legend {
+  font-size:13px;
+  font-weight:600;
+  padding:0 5px;
+}
+.radio-card {
+  display:flex!important;
+  align-items:center;
+  gap:12px;
+  font-size:13px;
+  padding:12px 0;
+  cursor:pointer;
+}
+.radio-card input {
+  width:17px;
+  height:17px;
+  accent-color:var(--accent);
+  flex-shrink:0;
+  margin:0;
+}
+.bakery-empty {
+  text-align:center;
+  padding:65px 20px;
+  grid-column:1/-1;
+  max-width:100%;
+}
+.bakery-empty h2 {
+  font-size:30px;
+}
+.empty-symbol {
+  font-size:60px;
+  color:var(--accent);
+}
+.error-text {
+  color:#a12727;
+}
+.status-pill {
+  display:inline-block;
+  border:1px solid #d8cbb7;
+  border-radius:18px;
+  padding:4px 9px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  background:#f3e8d4;
+  white-space:nowrap;
+}
+.status-pill.cancelled {
+  background:#f9e6e0;
+  color:#922a1a;
+}
+.status-pill.completed {
+  background:#e3eddb;
+  color:#375a32;
+}
+.status-pill.ready {
+  background:#e5eacd;
+  color:#455532;
+}
+.table-wrap {
+  overflow-x:auto;
+}
+.table-wrap table {
+  min-width:450px;
+}
+.table-wrap th,.table-wrap td {
+  font-size:12px;
+}
+.page-heading h1 {
+  font-size:clamp(30px,3.5vw,45px);
+}
+.admin-actions {
+  margin-top:25px;
+}
+.admin-actions form {
+  margin-top:15px;
+}
+.product-editor {
+  max-width:700px;
+}
+.sales-chart {
+  padding:15px 0;
+}
+.chart-row {
+  display:grid;
+  grid-template-columns:85px minmax(40px,1fr) 90px;
+  gap:10px;
+  align-items:center;
+  margin:18px 0;
+  font-size:11px;
+}
+.chart-row meter {
+  width:100%;
+  height:24px;
+  accent-color:#9c3527;
+}
+.chart-row meter::-webkit-meter-optimum-value {
+  background:#9c3527;
+}
+.metric-card strong {
+  font-family:Georgia,serif;
+  font-size:30px;
+  overflow-wrap:anywhere;
+}
+.metric-card {
+  min-width:0;
+}
+.bakery-auth-nav {
+  display:flex;
+  gap:16px;
+  font-size:13px;
+  margin-left:auto;
+}
+.account-chip {
+  margin-left:10px;
+}
+.framework-heading {
+  margin-top:35px;
+}
+.sidebar .sidebar-brand {
+  line-height:1.3;
+}
+.public-site .page-heading {
+  padding-top:35px;
+}
+.public-site .auth-layout {
+  margin-top:40px;
+}
+form[aria-busy=true] {
+  opacity:.75;
+}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible {
+  outline:3px solid #8b5915;
+  outline-offset:4px;
+}
+.submit-feedback {
+  font-size:13px;
+  color:var(--accent);
+}
+@media(min-width:1500px) {
+  .public-site .main-content {
+    padding-inline:70px;
+  }
+}
+@media(max-width:1100px) {
+  .bakery-grid {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  .authenticated .bakery-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .hero-copy h1 {
+    font-size:60px;
+  }
+  .hero-roundel {
+    width:85px;
+    height:85px;
+    font-size:9px;
+  }
+  .checkout-layout {
+    grid-template-columns:1.3fr 1fr;
+  }
+  .bake-card-content {
+    padding:16px;
+  }
+  .bakery-story {
+    gap:8%;
+    padding:40px 6%;
+  }
+}
+@media(max-width:800px) {
+  .bakery-hero {
+    padding:30px 0;
+    gap:20px;
+  }
+  .hero-copy h1 {
+    font-size:44px;
+  }
+  .hero-copy>p:not(.eyebrow) {
+    font-size:14px;
+  }
+  .hero-copy .actions {
+    flex-wrap:wrap;
+    gap:15px;
+  }
+  .hero-note {
+    font-size:14px;
+    padding:10px;
+  }
+  .hero-copy .hero-caption {
+    font-size:10px!important;
+  }
+  .hero-copy .eyebrow {
+    font-size:8px;
+  }
+  .hero-roundel {
+    width:65px;
+    height:65px;
+    font-size:7px;
+  }
+  .bakery-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .bakery-ribbon {
+    font-size:10px;
+    gap:10px;
+  }
+  .bakery-ribbon span:last-child,.bakery-ribbon span:nth-child(4) {
+    display:none;
+  }
+  .checkout-layout {
+    grid-template-columns:1fr;
+  }
+  .product-detail {
+    gap:30px;
+  }
+  .product-detail h1 {
+    font-size:33px;
+  }
+  .story-stamp {
+    font-size:50px;
+  }
+  .bakery-story h2 {
+    font-size:34px;
+  }
+  .public-site .public-nav {
+    gap:14px;
+  }
+  .public-site .topbar {
+    padding:15px 5%;
+  }
+  .catalogue-filters>div {
+    flex:1;
+    min-width:130px;
+  }
+}
+@media(max-width:550px) {
+  .bakery-hero {
+    grid-template-columns:1fr;
+    padding:30px 0;
+  }
+  .hero-copy h1 {
+    font-size:57px;
+    max-width:400px;
+    margin:20px 0;
+  }
+  .hero-copy>p:not(.eyebrow) {
+    font-size:14px;
+    max-width:100%;
+  }
+  .hero-copy .eyebrow {
+    font-size:9px;
+  }
+  .hero-art {
+    margin:10px 15px 5px;
+  }
+  .hero-art>img {
+    max-height:340px;
+  }
+  .hero-roundel {
+    width:82px;
+    height:82px;
+    font-size:9px;
+  }
+  .hero-note {
+    font-size:18px;
+  }
+  .hero-copy .hero-caption {
+    font-size:10px!important;
+  }
+  .public-site .public-nav {
+    flex-wrap:wrap;
+    justify-content:end;
+    gap:9px 14px;
+    font-size:11px;
+  }
+  .public-site .public-nav .button {
+    font-size:10px;
+    padding:8px;
+  }
+  .public-site .topbar {
+    gap:15px;
+  }
+  .bakery-wordmark {
+    font-size:33px;
+  }
+  .bakery-wordmark span {
+    font-size:8px;
+    letter-spacing:3px;
+  }
+  .bakery-section {
+    padding:32px 0;
+  }
+  .section-heading {
+    align-items:start;
+    flex-direction:column;
+    gap:5px;
+  }
+  .section-heading h2 {
+    font-size:34px;
+  }
+  .bakery-grid,.authenticated .bakery-grid {
+    gap:12px;
+  }
+  .bake-card-content {
+    padding:12px;
+  }
+  .bake-card h3 {
+    font-size:18px;
+  }
+  .bake-card p {
+    display:none;
+  }
+  .bake-card-bottom {
+    align-items:start;
+    flex-direction:column;
+    margin-top:15px;
+  }
+  .bake-card-bottom form,.bake-card-bottom button {
+    width:100%;
+  }
+  .bake-card-bottom strong {
+    font-size:15px;
+  }
+  .category-links {
+    gap:10px;
+  }
+  .category-links a {
+    font-size:11px;
+    padding:12px 16px;
+  }
+  .category-links span {
+    margin-left:10px;
+  }
+  .category-section {
+    padding:25px 0;
+  }
+  .category-section h2 {
+    font-size:30px;
+  }
+  .bakery-story {
+    grid-template-columns:1fr;
+    padding:30px;
+    gap:25px;
+  }
+  .story-stamp {
+    max-width:180px;
+    width:100%;
+    justify-self:center;
+  }
+  .bakery-story h2 {
+    font-size:37px;
+  }
+  .site-footer {
+    align-items:start;
+    gap:20px;
+    font-size:11px;
+    flex-direction:column;
+  }
+  .product-detail {
+    grid-template-columns:1fr;
+    padding-top:20px;
+  }
+  .product-detail h1 {
+    font-size:38px;
+  }
+  .bakery-page-heading h1 {
+    font-size:48px;
+  }
+  .bakery-page-heading {
+    padding-top:35px;
+  }
+  .catalogue-filters {
+    padding:15px;
+    gap:12px;
+  }
+  .catalogue-filters>div:first-child {
+    flex-basis:100%;
+  }
+  .catalogue-filters>div {
+    min-width:100px;
+  }
+  .catalogue-filters button {
+    flex-basis:70%;
+  }
+  .cart-row {
+    grid-template-columns:55px minmax(0,1fr);
+    gap:12px;
+  }
+  .cart-row>strong {
+    grid-column:2;
+  }
+  .cart-row img {
+    width:55px;
+    height:65px;
+  }
+  .cart-controls {
+    gap:6px;
+  }
+  .cart-controls label {
+    flex-basis:100%;
+  }
+  .cart-controls .button {
+    padding:7px;
+  }
+  .checkout-layout>.panel {
+    padding:18px;
+  }
+  .page-heading {
+    gap:15px;
+  }
+  .bakery-auth-nav {
+    font-size:11px;
+    gap:10px;
+  }
+  .account-chip span:not(.avatar) {
+    display:none;
+  }
+  .account-chip {
+    margin-left:0;
+  }
+  .authenticated .header-logo {
+    font-size:12px;
+    max-width:100px;
+    line-height:1.2;
+  }
+  .chart-row {
+    grid-template-columns:75px 1fr 80px;
+  }
+  .bakery-form>button {
+    width:100%;
+  }
+  .admin-actions {
+    padding:18px;
+  }
+  .hero-copy .button {
+    padding:13px 19px;
+  }
+  .bakery-empty {
+    padding:40px 5px;
+  }
+  .bakery-empty h2 {
+    font-size:26px;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  * {
+    scroll-behavior:auto!important;
+  }
+  .bake-card,.bake-image img {
+    transition:none;
+  }
+}

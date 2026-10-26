@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit' if product else 'Create' }} product{% endblock %}
+{% block content %}<a href="{{ url_for('bakery.inventory') }}">← Inventory</a>
+<header class="page-heading">
+<h1>{{ 'Edit' if product else 'Create' }} product</h1>
+</header>
+<form class="panel bakery-form product-editor" method="post">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<input type="hidden" name="version" value="{{ values.get('version',1) }}">
+<label for="name">Product name</label>
+<input id="name" name="name" maxlength="120" required value="{{ values.get('name','') }}">
+<label for="description">Description and allergens</label>
+<textarea id="description" name="description" rows="4" maxlength="3000" required>{{ values.get('description','') }}</textarea>
+<label for="category_id">Category</label>
+<select id="category_id" name="category_id" required>{% for category in categories %}<option value="{{ category.id }}" {% if values.get('category_id')|string == category.id|string %}selected{% endif %}>{{ category.name }}</option>{% endfor %}</select>
+<label for="price">Price (₱)</label>
+<input id="price" name="price" type="number" min="0.01" max="999999.99" step="0.01" required value="{{ values.get('price','') }}">
+<label for="stock">Available stock</label>
+<input id="stock" name="stock" type="number" min="0" max="1000000" step="1" required value="{{ values.get('stock',0) }}">
+<label for="image">Local illustration</label>
+<select id="image" name="image">{% for image in images %}<option value="{{ image }}" {% if values.get('image') == image %}selected{% endif %}>{{ image|title }}</option>{% endfor %}</select>
+<label class="radio-card">
+<input name="active" type="checkbox" value="1" {% if values.get('active', not product) %}checked{% endif %}>
+<span>Active · visible in the bakery</span>
+</label>
+<p class="muted">Deactivate to stop new purchases. Historical order details are preserved. Stock edits use a version check to protect concurrent purchases.</p>
+<button class="button primary">Save product</button>
+</form>{% endblock %}

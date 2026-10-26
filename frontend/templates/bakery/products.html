@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "bakery/_cards.html" import cards with context %}
+{% block title %}The bakery{% endblock %}
+{% block content %}
+<header class="bakery-page-heading">
+<p class="eyebrow">A LITTLE SOMETHING FOR EVERY CRAVING</p>
+<h1>The bakery.</h1>
+<p>Small-batch favourites. Honest ingredients. Everyday joy.</p>
+</header>
+<form class="catalogue-filters" method="get">
+<div>
+<label for="q">Find your favourite</label>
+<input id="q" name="q" value="{{ q }}" maxlength="100" placeholder="Search baked goods…" type="search">
+</div>
+<div>
+<label for="category">Category</label>
+<select id="category" name="category">
+<option value="">All baked goods</option>{% for category in categories %}<option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>{{ category.name }}</option>{% endfor %}</select>
+</div>
+<div>
+<label for="sort">Sort by</label>
+<select id="sort" name="sort">
+<option value="name" {% if sort == 'name' %}selected{% endif %}>Name · A to Z</option>
+<option value="price_asc" {% if sort == 'price_asc' %}selected{% endif %}>Price · low to high</option>
+<option value="price_desc" {% if sort == 'price_desc' %}selected{% endif %}>Price · high to low</option>
+</select>
+</div>
+<button class="button primary">Find treats</button>
+<a href="{{ url_for('bakery.products') }}">Reset</a>
+</form>
+<p class="muted">{{ pagination.total }} baked goods · Prices in Philippine pesos</p>{{ cards(pagination.items) }}{% from "components/pagination.html" import pager with context %}{{ pager(pagination) }}
+{% endblock %}

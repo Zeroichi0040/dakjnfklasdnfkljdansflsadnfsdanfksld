@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}{{ resource.singular }} #{{ record.id }}{% endblock %}
+{% block content %}
+  <section class="detail-shell">
+    <a class="back-link" href="{{ url_for(resource.key + '.index') }}">← {{ resource.label }}</a>
+    <header class="page-heading">
+      <div>
+        <p class="eyebrow">{{ resource.label|upper }} / #{{ record.id }}</p>
+        <h1>{{ getattr(record, resource.fields[0].name)|field_value }}</h1>
+      </div>
+      <div class="actions">
+        <a class="button primary"
+           href="{{ url_for(resource.key + '.edit_page', identifier=record.id) }}">Edit {{ resource.singular.lower() }}</a>
+        {% if resource.key == "pages" and record.published %}
+          <a class="button quiet"
+             href="{{ url_for('public.page', slug=record.slug) }}">View published page ↗</a>
+        {% endif %}
+      </div>
+    </header>
+    <div class="detail-grid">
+      <section class="panel">
+        <dl class="record-fields">
+          {% for field in resource.fields %}
+            <div>
+              <dt>{{ field.label }}</dt>
+              <dd class="preserve-lines">
+                {{ getattr(record, field.name)|field_value }}
+              </dd>
+            </div>
+          {% endfor %}
+        </dl>
+      </section>
+      <aside class="panel record-meta">
+        <h2>Record details</h2>
+        <dl>
+          <dt>Created</dt>
+          <dd>
+            {{ record.created_at|date_label }}
+          </dd>
+          <dt>Updated</dt>
+          <dd>
+            {{ record.updated_at|date_label }}
+          </dd>
+          <dt>Version</dt>
+          <dd>
+            {{ record.version }}
+          </dd>
+        </dl>
+        <form method="post"
+              action="{{ url_for(resource.key + '.delete_page', identifier=record.id) }}"
+              data-confirm="Permanently delete this record? This cannot be undone.">
+          {{ action_form.hidden_tag() }}<input type="hidden" name="version" value="{{ record.version }}">
+          <button class="button danger-button" type="submit">Delete {{ resource.singular.lower() }}</button>
+        </form>
+      </aside>
+    </div>
+  </section>
+{% endblock %}

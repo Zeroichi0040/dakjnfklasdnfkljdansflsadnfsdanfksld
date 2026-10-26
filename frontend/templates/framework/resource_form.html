@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% from 'components/forms.html' import field %}
+{% block title %}{{ 'Edit' if record else 'Add' }}
+  {{ resource.singular|lower }}{% endblock %}
+{% block content %}
+  <section class="narrow">
+    <a class="back-link" href="{{ url_for(resource.key + '.index') }}">← {{ resource.label }}</a>
+    <header class="page-heading">
+      <div>
+        <p class="eyebrow">{{ resource.label|upper }}</p>
+        <h1>
+          {{ 'Edit' if record else 'Add' }}
+          {{ resource.singular|lower }}
+        </h1>
+      </div>
+    </header>
+    <form class="panel form-stack"
+          method="post">{{ form.hidden_tag() }}{% for definition in resource.fields %}
+      {% set input = getattr(form, definition.name) %}
+      {% if definition.kind == "boolean" %}
+        <div class="field">
+          <label class="checkbox-label">
+            {{ input() }}
+            {{ input.label.text }}
+          </label>
+          {% for message in input.errors %}
+            <p class="field-error">{{ message }}</p>
+          {% endfor %}
+        </div>
+{% else %}{{ field(input, help=definition.help) }}{% endif %}
+{% endfor %}
+<div class="actions">
+  {{ form.submit(class_='button primary') }}<a class="button quiet"
+   href="{{ url_for(resource.key + '.index') }}">Cancel</a>
+</div>
+</form>
+</section>
+{% endblock %}
