@@ -1,0 +1,29 @@
+<div class="cart-overlay" data-cart-close hidden></div>
+<aside id="cart-sidebar"
+       class="cart-sidebar"
+       aria-label="Shopping cart"
+       aria-hidden="true">
+  <header class="cart-sidebar-header">
+    <h2>Your cart</h2>
+    <button class="button quiet small"
+            type="button"
+            data-cart-close
+            aria-label="Close cart">Close</button>
+  </header>
+  {# Replace these sample rows with the real cart items. #}
+  <ul class="cart-items">
+    <li>
+      <span>Sample Product 1 × 1</span>
+      <span>₱250.00</span>
+    </li>
+    <li>
+      <span>Sample Product 2 × 2</span>
+      <span>₱640.00</span>
+    </li>
+  </ul>
+  <p class="summary-total"><span>Subtotal</span><strong>₱890.00</strong></p>
+  <div class="cart-sidebar-actions">
+    <a class="button primary" href="{{ url_for('shop.checkout') }}">Checkout</a>
+    <a class="button quiet" href="{{ url_for('shop.products') }}">Continue shopping</a>
+  </div>
+</aside>

@@ -41,15 +41,21 @@
                 class="header-logo-image"
               >
             <nav class="public-nav" aria-label="Main navigation">
-              <a href="{{ url_for('public.contact') }}">Products</a>
+              <a href="{{ url_for('shop.products') }}">Products</a>
               <a href="{{ url_for('auth.login_page') }}">Sign in</a>
+              {# Opens the cart sidebar (JS); without JS it goes to checkout. #}
               <a class="cart-icon"
-                href="{{ url_for('auth.register_page') }}">
+                href="{{ url_for('shop.checkout') }}"
+                data-cart-open
+                aria-controls="cart-sidebar"
+                aria-expanded="false"
+                aria-label="Open cart">
                 <img class="basket-icon"
-                  src="../static/images/icons/basket.svg">
-                <div class="basket-number">5</div>
-              </a> 
-                 <!--Replace with CART page link & add variable for number of items in cart-->
+                  src="{{ url_for('static', filename='images/icons/basket.svg') }}"
+                  alt="">
+                {# Replace the default with the real number of items in the cart. #}
+                <div class="basket-number">{{ cart_count|default(0) }}</div>
+              </a>
             </nav>
           {% endif %}
         </header>
@@ -68,5 +74,8 @@
         </footer>
       </div>
     </div>
+    {% if not current_user.is_authenticated %}
+      {% include "components/cart_sidebar.html" %}
+    {% endif %}
   </body>
 </html>

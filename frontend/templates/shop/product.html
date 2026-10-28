@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+  <section class="product-detail">
+    <a class="back-link" href="{{ url_for('shop.products') }}">← All products</a>
+    <div class="product-detail-layout">
+      <div class="product-media large">
+        <img src="{{ url_for('static', filename='images/icons/basket.svg') }}"
+             alt="{{ product.name }}">
+      </div>
+      <div class="product-info">
+        <p class="eyebrow">PRODUCT</p>
+        <h1>{{ product.name }}</h1>
+        <p class="product-price">₱{{ '%.2f'|format(product.price) }}</p>
+        <p class="lead">{{ product.description }}</p>
+        {# Wire this form to the add-to-cart backend when it exists. #}
+        <form class="product-actions" method="post" action="{{ url_for('shop.checkout') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="product" value="{{ product.slug }}">
+          <label for="quantity">Quantity</label>
+          <input id="quantity" name="quantity" type="number" min="1" value="1">
+          <button class="button primary" type="button" data-cart-open>Add to cart</button>
+        </form>
+        <a class="button quiet" href="{{ url_for('shop.checkout') }}">Go to checkout</a>
+      </div>
+    </div>
+  </section>
+{% endblock %}

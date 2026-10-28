@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+  <section class="checkout">
+    <a class="back-link" href="{{ url_for('shop.products') }}">← Continue shopping</a>
+    <header class="page-heading">
+      <div>
+        <p class="eyebrow">CHECKOUT</p>
+        <h1>Checkout</h1>
+      </div>
+    </header>
+    <div class="checkout-layout">
+      <form class="panel form-stack" method="post" action="{{ url_for('shop.checkout') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <h3>Contact</h3>
+        <div class="field">
+          <label for="full_name">Full name</label>
+          <input id="full_name" name="full_name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel">
+        </div>
+        <h3>Delivery address</h3>
+        <div class="field">
+          <label for="address">Address</label>
+          <input id="address" name="address" type="text" autocomplete="street-address" required>
+        </div>
+        <div class="field">
+          <label for="city">City</label>
+          <input id="city" name="city" type="text" autocomplete="address-level2" required>
+        </div>
+        <div class="field">
+          <label for="notes">Order notes</label>
+          <textarea id="notes" name="notes" rows="3"></textarea>
+        </div>
+        <button class="button primary" type="submit">Place order</button>
+      </form>
+      <aside class="panel order-summary" aria-label="Order summary">
+        <h3>Order summary</h3>
+        {# Replace these sample rows with the real cart items. #}
+        <ul class="summary-list">
+          <li><span>Sample Product 1 × 1</span><span>₱250.00</span></li>
+          <li><span>Sample Product 2 × 2</span><span>₱640.00</span></li>
+        </ul>
+        <p class="summary-total"><span>Total</span><strong>₱890.00</strong></p>
+        <a class="button quiet" href="{{ url_for('shop.products') }}">Add more items</a>
+      </aside>
+    </div>
+  </section>
+{% endblock %}

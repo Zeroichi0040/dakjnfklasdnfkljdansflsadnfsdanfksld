@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Products{% endblock %}
+{% block content %}
+  <section class="public-content">
+    <header class="page-heading">
+      <div>
+        <p class="eyebrow">SHOP</p>
+        <h1>Products</h1>
+      </div>
+    </header>
+    <div class="product-grid">
+      {# Replace `products` with the real product list from the database. #}
+      {% for product in products %}
+        <article class="product-card">
+          <a class="product-media"
+             href="{{ url_for('shop.product', slug=product.slug) }}"
+             aria-label="View {{ product.name }}">
+            <img src="{{ url_for('static', filename='images/icons/basket.svg') }}" alt="">
+          </a>
+          <h2><a href="{{ url_for('shop.product', slug=product.slug) }}">{{ product.name }}</a></h2>
+          <p>{{ product.description }}</p>
+          <div class="product-card-footer">
+            <strong>₱{{ '%.2f'|format(product.price) }}</strong>
+            <a class="button primary small"
+               href="{{ url_for('shop.product', slug=product.slug) }}">View</a>
+          </div>
+        </article>
+      {% else %}
+        <p class="hint">No products yet.</p>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

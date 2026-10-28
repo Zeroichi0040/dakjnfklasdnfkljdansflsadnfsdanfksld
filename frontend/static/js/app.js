@@ -29,6 +29,31 @@ if (menu && sidebar) {
   });
 }
 
+/* Cart sidebar (public site). Opens from [data-cart-open], closes from [data-cart-close] or Escape. */
+const cart = document.querySelector('#cart-sidebar');
+if (cart) {
+  const overlay = document.querySelector('.cart-overlay');
+  const openers = document.querySelectorAll('[data-cart-open]');
+  const setCart = (open, restoreFocus = false) => {
+    cart.classList.toggle('is-open', open);
+    cart.setAttribute('aria-hidden', String(!open));
+    cart.inert = !open;
+    if (overlay) overlay.hidden = !open;
+    openers.forEach(opener => opener.setAttribute('aria-expanded', String(open)));
+    if (open) cart.querySelector('button, a')?.focus();
+    else if (restoreFocus) openers[0]?.focus();
+  };
+  setCart(false);
+  openers.forEach(opener => opener.addEventListener('click', event => {
+    event.preventDefault();
+    setCart(true);
+  }));
+  document.querySelectorAll('[data-cart-close]').forEach(closer => closer.addEventListener('click', () => setCart(false, true)));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && cart.classList.contains('is-open')) setCart(false, true);
+  });
+}
+
 document.addEventListener('submit', event => {
   if (event.target.dataset.confirm && !window.confirm(event.target.dataset.confirm)) event.preventDefault();
 });
